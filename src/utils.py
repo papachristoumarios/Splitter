@@ -19,6 +19,6 @@ def graph_reader(path):
     :param path: Path to the edge list.
     :return graph: NetworkX object returned.
     """
-    graph = nx.from_edgelist(pd.read_csv(path).values.tolist())
+    graph = nx.from_edgelist(pd.read_csv(path, sep="\s+|\t+|\s+\t+|\t+\s+").values.tolist())
     graph.remove_edges_from(graph.selfloop_edges())
     return graph
