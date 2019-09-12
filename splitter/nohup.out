@@ -1,0 +1,9 @@
+usage: main.py [-h] [--edge-path [EDGE_PATH]]
+               [--embedding-output-path [EMBEDDING_OUTPUT_PATH]]
+               [--persona-output-path [PERSONA_OUTPUT_PATH]]
+               [--number-of-walks NUMBER_OF_WALKS] [--window-size WINDOW_SIZE]
+               [--negative-samples NEGATIVE_SAMPLES]
+               [--walk-length WALK_LENGTH] [--seed SEED]
+               [--learning-rate LEARNING_RATE] [--lambd LAMBD]
+               [--dimensions DIMENSIONS] [--workers WORKERS]
+main.py: error: unrecognized arguments: --persona-output-pah foo.json
