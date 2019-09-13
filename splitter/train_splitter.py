@@ -244,7 +244,7 @@ class SplitterTrainer(object):
         Saving the persona map.
         """
         temp = {}
-        for key, val in self.egonet_splitter.personality_map:
+        for key, val in self.egonet_splitter.personality_map.items():
             temp[idx2node[key]] = val
         with open(self.args.persona_output_path, "w") as f:
            json.dump(temp, f)                     
