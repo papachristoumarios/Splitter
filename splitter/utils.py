@@ -40,6 +40,7 @@ def graph_reader(path):
         edgelist.append((node2idx[u], node2idx[v]))
     graph = nx.from_edgelist(edgelist)
     graph.remove_edges_from(graph.selfloop_edges())
-    
+   
+    print('Graph Nodes: {}, Graph Edges: {}'.format(len(graph), len(graph.edges())))
     
     return graph, node2idx, idx2node

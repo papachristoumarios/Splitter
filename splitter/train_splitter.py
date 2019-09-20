@@ -235,7 +235,8 @@ class SplitterTrainer(object):
         nodes = torch.LongTensor(nodes).to(self.device)
         self.embedding = self.model.node_embedding(nodes).cpu().detach().numpy()
         embedding_header = ["id"] + ["x_" + str(x) for x in range(self.args.dimensions)]
-        self.embedding  = np.concatenate([np.array([idx2node[i] for i in range(self.embedding.shape[0])]).reshape(-1,1),self.embedding],axis=1)
+        self.embedding  = np.concatenate([np.array([i for i in range(self.embedding.shape[0])]).reshape(-1,1),self.embedding],axis=1)
+        import pdb; pdb.set_trace()
         self.embedding = pd.DataFrame(self.embedding, columns = embedding_header)
         self.embedding.to_csv(self.args.embedding_output_path, index = None)
 
