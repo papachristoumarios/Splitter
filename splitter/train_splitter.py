@@ -225,7 +225,7 @@ class SplitterTrainer(object):
             loss_score = self.optimize()
             self.update_average_loss(loss_score)
 
-    def save_embedding(self, idx2node):
+    def save_embedding(self):
         """
         Saving the node embedding.
         """
@@ -235,8 +235,7 @@ class SplitterTrainer(object):
         nodes = torch.LongTensor(nodes).to(self.device)
         self.embedding = self.model.node_embedding(nodes).cpu().detach().numpy()
         embedding_header = ["id"] + ["x_" + str(x) for x in range(self.args.dimensions)]
-        self.embedding  = np.concatenate([np.array([i for i in range(self.embedding.shape[0])]).reshape(-1,1),self.embedding],axis=1)
-        import pdb; pdb.set_trace()
+        self.embedding  = np.concatenate([np.array(range(self.embedding.shape[0])).reshape(-1,1),self.embedding],axis=1)
         self.embedding = pd.DataFrame(self.embedding, columns = embedding_header)
         self.embedding.to_csv(self.args.embedding_output_path, index = None)
 
@@ -246,10 +245,9 @@ class SplitterTrainer(object):
         """
         temp = {}
         for key, val in self.egonet_splitter.personality_map.items():
-            temp[idx2node[key]] = val
+            temp[key] = idx2node[val]
         with open(self.args.persona_output_path, "w") as f:
-           json.dump(temp, f)                     
-
+           json.dump(temp, f)    
 
 def main():
     """
@@ -263,7 +261,7 @@ def main():
     graph, node2idx, idx2node = graph_reader(args.edge_path)
     trainer = SplitterTrainer(graph, args)
     trainer.fit()
-    trainer.save_embedding(idx2node)
+    trainer.save_embedding()
     trainer.save_persona_graph_mapping(idx2node)
 
 if __name__ == "__main__":
